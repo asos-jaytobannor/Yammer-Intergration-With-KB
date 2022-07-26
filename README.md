@@ -24,7 +24,7 @@ In the language studio scroll down until you find **Custom Question Answering** 
 
 ![](customQA.PNG)
 
-You'll now have to add a source to the KB there are three types of sources: **URLs**, **Files** and **Chitchat**. For now select files as a source using a excel file containing template questions: [SampleFAQs.xlsx](SampleFAQs.xlsx)
+You'll now have to add a source to the KB there are three types of sources: **URLs**, **Files** and **Chitchat**. For now select files as a source using a excel file containing template questions: [SampleFAQs.xlsx](SampleFAQs.xlsx) (open in new tab and click download)
 
 Question and answer pairs should now populate the KB. Go to the deploy knowledge base section and click deploy. After the deployment is finshied click **get prediction URL** and you'll be given endpoint to make requests.
 
