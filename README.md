@@ -5,10 +5,10 @@
   - [Test the endpoint on postman](#test-the-endpoint-on-postman)
   - [Using Power Automate to make a connection](#using-power-automate-to-make-a-connection)
 
-This documentation will show how to connect a knowledge base with question and answer pairs with yammer . After the connection is made the result should be then when question is asked in a yammer community page a answer matching the question from the knowledge base should be retrived and shown as a reply to the orginal question. 
+This documentation will show how to connect a knowledge base with question and answer pairs with yammer. After the connection is made the result should be when a question is asked in a yammer community page a answer matching the question from the knowledge base should be retrived and shown as a reply to the orginal question. 
 
 ## Creating the knowledge base
-Firstly the knowledge base (**KB**) need to be created. Log into azure portal and create a language resource which has the functionally to create a KB. Furthermore the Cognitive Services Contributor role need to be assigned to your account on the subscription you are using. Addtionally make sure the region of the language resource should match the region of the resource group or it wont work correctly.
+Firstly the knowledge base (**KB**) needs to be created. Log into azure portal and create a language resource which has the functionally to create a KB. Furthermore the Cognitive Services Contributor role needs to be assigned to your account on the subscription you are using. Addtionally make sure the region of the language resource should match the region of the resource group or it wont work correctly.
 
 **Create language resource in Azure Cli**
 
@@ -16,15 +16,15 @@ Firstly the knowledge base (**KB**) need to be created. Log into azure portal an
 az cognitiveservices account create --name <resource_name> --resource-group <resource_group> --kind TextAnalytics --sku F0 --location <region_name> --yes
 ```
 
-After the language resource is created go to the overview section scroll down and you should **language studio** open it on a new tab.
+After the language resource is created go to the overview section scroll down and you should see **language studio**, open it on a new tab.
 
 ![](lang_resource.PNG)
 
-In the language studio scroll down until you find **Custom Question Answering** and open it. Create a new project populate the fields inside containing the project name and source name. After the project is created add a **Azure Search Resource** to it (create a new one if there isn't a exsisting one). When this done a empty KB will be created
+In the language studio scroll down until you find **Custom Question Answering** and open it. Create a new project, populate the fields inside containing the project name and source name. After the project is created add a **Azure Search Resource** to it (create a new one if there isn't a existing one already). When this is done a empty KB will be created
 
 ![](customQA.PNG)
 
-You'll now have to a source to the KB there are three types of sources: **URLs**, **Files** and **Chitchat**. For now select files as a source using a execl file containing template questions:
+You'll now have to add a source to the KB there are three types of sources: **URLs**, **Files** and **Chitchat**. For now select files as a source using a excel file containing template questions: [SampleFAQs.xlsx](SampleFAQs.xlsx)
 
 Question and answer pairs should now populate the KB. Go to the deploy knowledge base section and click deploy. After the deployment is finshied click **get prediction URL** and you'll be given endpoint to make requests.
 
@@ -110,7 +110,7 @@ To make a connection between the knowledge base and yammer itself Power Automate
 
 Go to the power automate page and log in https://emea.flow.microsoft.com/en-us/ 
 
-Click on create and make a blank automated cloud flow in the search bar under **Choose your flow's trigger** type in yammer and select **When there is a new message in the group**
+Click on create and make a blank automated cloud flow, in the search bar under **Choose your flow's trigger** type in yammer and select **When there is a new message in the group**
 
 ![](flow_trigger.PNG)
 
@@ -118,10 +118,10 @@ Sign in with your microsoft account when a connection with yammer is requested.
 
 Add the group and network ID of your choosing to the trigger step
 
-Add two more steps that initialize variables. The subscription key variable need to be the same as the language resource's key in azure and the project name variable needs to be the same as the name of the project created in the language studio 
+Add two more steps that initialize variables. The subscription key variable needs to be the same as the language resource's key in azure and the project name variable needs to be the same as the name of the project created in the language studio 
 ![](flow1.PNG)
 
-Next create a condition step checking if the message is a question. On the first text box and dyanmic content box should pop up type in message type in the search, select in and click OK. The condition has to be **equals to** and type 'question' into the second text box 
+Next create a condition step, checking if the message is a question. On the first text box and dyanmic content box should pop up type in message type in the search, select in and click OK. The condition has to be **equals to** and type 'question' into the second text box 
 ![](flow2.PNG)
 
 In the yes section add in two actions **HTTP** and **yammer post message** 
